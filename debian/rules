@@ -12,7 +12,7 @@
 DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
-PACKAGE=memcached
+PACKAGE=memcached-clearwater
 PKGBASE=debian/$(PACKAGE)/usr/share/memcached/
 SCRIPTS=$(PKGBASE)/scripts
 
@@ -44,14 +44,14 @@ build-stamp:  config.status
 	dh_quilt_patch
 	dh_testdir
 	$(MAKE)
-	dh_auto_test
+	#dh_auto_test
 	touch build-stamp
 
 clean:
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp config.log
-	rm -f debian/memcached.init
+	rm -f debian/$(PACKAGE).init
 	# Add here commands to clean up after the build process.
 	[ ! -f Makefile ] || $(MAKE) distclean
 
@@ -65,13 +65,13 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/memcached.
-	$(MAKE) install DESTDIR=$(CURDIR)/debian/memcached
-	#install -d $(CURDIR)/$(PKGBASE)
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/$(PACKAGE)
+	install -d $(CURDIR)/$(PKGBASE)
 	install -m 644 $(CURDIR)/debian/memcached.conf $(CURDIR)/$(PKGBASE)/memcached.conf.default
-	#install -d $(SCRIPTS)
+	install -d $(SCRIPTS)
 	install -m 744 $(CURDIR)/scripts/start-memcached $(SCRIPTS)
 	install -m 744 $(CURDIR)/scripts/memcached-tool $(SCRIPTS)
-	install -m 755 $(CURDIR)/scripts/memcached-init $(CURDIR)/debian/memcached.init
+	install -m 755 $(CURDIR)/scripts/memcached-init $(CURDIR)/debian/$(PACKAGE).init
 
 
 # Build architecture-independent files here.
