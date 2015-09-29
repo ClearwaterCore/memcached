@@ -1,0 +1,48 @@
+#!/bin/sh
+
+set -e
+
+GROUP="memcache"
+USER="memcache"
+DATADIR="/nonexistent"
+
+# shamelessly copied from debian gearman-job-server package...
+
+case "$1" in
+configure)
+    rm -f /etc/init.d/memcached /etc/default/memcached
+    ln -s /etc/init.d/memcached-clearwater /etc/init.d/memcached
+    ln -s /etc/default/memcached-clearwater /etc/default/memcached
+    # creating memcache group if it isn't already there
+    if ! getent group $GROUP >/dev/null ; then
+            # Adding system group
+            addgroup --system $GROUP >/dev/null
+    fi
+
+    # creating memcache user if it isn't already there
+    if ! getent passwd $USER >/dev/null ; then
+            # Adding system user
+            adduser \
+              --system \
+              --disabled-login \
+              --ingroup $GROUP \
+              --home $DATADIR \
+              --gecos "Memcached" \
+              --shell /bin/false \
+              $USER  >/dev/null
+    fi
+    if [ ! -e /etc/memcached.conf ]
+        then
+            mkdir -p /etc
+            cp /usr/share/memcached/memcached.conf.default /etc/memcached.conf
+    fi
+
+    # Install /etc/init.d/memcached in the postinst, because clearwater-memcached previously edited
+    # it with a script, and now the Debian infrastructure won't change it.
+    cp /usr/share/memcached/scripts/memcached-init /etc/init.d/memcached
+    service memcached restart
+
+    ;;
+esac
+
+#DEBHELPER#

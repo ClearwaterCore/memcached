@@ -1,4 +1,4 @@
-Source: memcached
+Source: memcached-clearwater
 Section: web
 Priority: optional
 Maintainer: Project Clearwater Maintainers <maintainers@projectclearwater.org>
@@ -7,8 +7,10 @@ Build-Depends: debhelper (>= 6), libevent-dev, quilt (>= 0.46-7)
 Homepage: http://www.danga.com/memcached/
 Standards-Version: 3.8.4
 
-Package: memcached
+Package: memcached-clearwater
 Architecture: any
+Replaces: memcached
+Breaks: memcached
 Depends: ${shlibs:Depends}, perl, ${misc:Depends}, lsb-base (>= 3.2-13)
     , adduser
 Suggests: libcache-memcached-perl, libmemcached
