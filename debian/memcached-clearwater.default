@@ -1,3 +1,0 @@
-# Set this to no to disable memcached.
-ENABLE_MEMCACHED=yes
-START_PREFIX=/usr/share/clearwater/bin/run-in-signaling-namespace
