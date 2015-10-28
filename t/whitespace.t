@@ -6,7 +6,7 @@ our @files;
 BEGIN {
     chdir "$Bin/.." or die;
 
-    my @exempted = qw(build-stamp Makefile.am ChangeLog doc/Makefile.am win32/Makefile.mingw m4/c99-backport.m4);
+    my @exempted = qw(Makefile.cc build-stamp Makefile.am ChangeLog doc/Makefile.am win32/Makefile.mingw m4/c99-backport.m4);
     push(@exempted, glob("doc/*.xml"));
     push(@exempted, glob("doc/xml2rfc/*.xsl"));
     push(@exempted, glob("m4/*backport*m4"));
