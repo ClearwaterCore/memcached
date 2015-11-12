@@ -21,7 +21,7 @@ deb:
 	sed -i~ 's/#install -d $$(CURDIR)/install -d $$(CURDIR)/' debian/rules
 	sed -i~ 's/#install -d $$(SCRIPTS)/install -d $$(SCRIPTS)/' debian/rules
 	sed -i~ '#install -m 755 $$(CURDIR)/scripts/$$(PACKAGE)-init $$(CURDIR)/debian/$$(PACKAGE).init#d' debian/rules
-	sed -i~ '/install -m 744 $$(CURDIR)\/scripts\/memcached-tool $$(SCRIPTS)#a\	install -m 755 $$(CURDIR)/scripts/$$(PACKAGE)-init $$(CURDIR)/debian/$$(PACKAGE).init' debian/rules
+	sed -i~ '/install -m 744 $$(CURDIR)\/scripts\/memcached-tool $$(SCRIPTS)/a\	install -m 755 $$(CURDIR)/scripts/$$(PACKAGE)-init $$(CURDIR)/debian/$$(PACKAGE).init' debian/rules
 	#
 	sed -i~ 's#my @exempted = qw(Makefile.am#my @exempted = qw(Makefile.cc Makefile.am#' t/whitespace.t
 	sed -i~ '/find -L debian -type f -print0/d' t/whitespace.t
