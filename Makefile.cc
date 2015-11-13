@@ -4,12 +4,12 @@ deb:
 	sed  -i~ '/Architecture: any/aBreaks: memcached' debian/control
 	#
 	cp -vp debian/memcached.install debian/memcached-clearwater.install
-	cp -vp debian/memcached.postinst debian/memcached-clearwater.posinst
+	cp -vp debian/memcached.postinst debian/memcached-clearwater.postinst
 	cp -vp debian/memcached.postrm debian/memcached-clearwater.postrm
 	#
-	sed -i~ '#configure)#aln -s /etc/default/memcached-clearwater /etc/default/memcached' debian/memcached-clearwater.posinst
-	sed -i~ '#configure)#aln -s /etc/init.d/memcached-clearwater /etc/init.d/memcached' debian/memcached-clearwater.posinst
-	sed -i~ '#configure)#arm -f /etc/init.d/memcached /etc/default/memcached' debian/memcached-clearwater.posinst
+	sed -i~ '#configure)#aln -s /etc/default/memcached-clearwater /etc/default/memcached' debian/memcached-clearwater.postinst
+	sed -i~ '#configure)#aln -s /etc/init.d/memcached-clearwater /etc/init.d/memcached' debian/memcached-clearwater.postinst
+	sed -i~ '#configure)#arm -f /etc/init.d/memcached /etc/default/memcached' debian/memcached-clearwater.postinst
 	#
 	rm -f scripts/memcached-clearwater-init 
 	cp -vp scripts/memcached-init scripts/memcached-clearwater-init 
